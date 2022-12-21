@@ -1,4 +1,3 @@
-
 # Ansible Role:  `docker-sd`
 
 Ansible role to install and configure [docker-sd](https://github.com/bodsch/docker-sd).
