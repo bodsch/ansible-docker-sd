@@ -27,8 +27,6 @@ If this type of installation is not desired, the download can take place directl
 However, this must be explicitly activated by setting `docker_sd_direct_download` to `true`.
 
 
-
-
 ## Contribution
 
 Please read [Contribution](CONTRIBUTING.md)
@@ -43,6 +41,27 @@ If you want to use something stable, please use a [Tagged Version](https://githu
 ## Configuration
 
 ```yaml
+docker_sd_version: "0.9.3"
+
+docker_sd_release_download_url: https://github.com/bodsch/docker-sd/releases
+
+docker_sd_system_user: docker-sd
+docker_sd_system_group: docker-sd
+docker_sd_config_dir: /etc/docker-sd
+
+docker_sd_direct_download: false
+
+docker_sd_rest_api:
+  port: 8088
+  address: 127.0.0.1
+
+docker_sd_hosts:
+  - host: "unix:///run/docker.sock"
+    metrics_ports:
+      8199: "/metrics"
+      8081: "/actuator/prometheus"
+
+docker_sd_addition_labels: []
 ```
 
 ---

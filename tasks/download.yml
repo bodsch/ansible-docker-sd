@@ -1,0 +1,42 @@
+---
+
+- name: define checksum
+  become: false
+  delegate_to: localhost
+  run_once: true
+  block:
+    - name: get checksum list
+      ansible.builtin.set_fact:
+        # https://github.com/bodsch/docker-sd/releases/download/0.9.2/docker-sd-0.9.2-linux-amd64.tar.gz.sha256
+        __docker_sd_checksums: "{{ lookup('url', docker_sd_release_download_url + '/download/' + __docker_sd_files.checksum, wantlist=True) | list }}"
+
+    - name: get checksum for {{ go_arch }} architecture
+      ansible.builtin.set_fact:
+        __docker_sd_checksum: "{{ __docker_sd_checksums[0] }}"
+
+- name: download docker_sd binary archive
+  become: false
+  delegate_to: "{{ docker_sd_delegate_to }}"
+  run_once: "{{ 'false' if docker_sd_direct_download else 'true' }}"
+  ansible.builtin.get_url:
+    url: "{{ docker_sd_release_download_url }}/download/{{ __docker_sd_files.archive }}"
+    dest: "{{ docker_sd_local_tmp_directory }}/docker_sd-linux-amd64.tar.gz"
+    checksum: "sha256:{{ __docker_sd_checksum }}"
+    mode: 0660
+  register: _download_archive
+  until: _download_archive is succeeded
+  retries: 5
+  delay: 2
+  check_mode: false
+
+- name: extract docker_sd archive
+  become: false
+  delegate_to: "{{ docker_sd_delegate_to }}"
+  run_once: "{{ 'false' if docker_sd_direct_download else 'true' }}"
+  ansible.builtin.unarchive:
+    src: "{{ docker_sd_local_tmp_directory }}/docker_sd-linux-amd64.tar.gz"
+    dest: "{{ docker_sd_local_tmp_directory }}"
+    copy: false
+  register: _extract_archive
+
+...
