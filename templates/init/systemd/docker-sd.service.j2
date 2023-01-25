@@ -12,12 +12,11 @@ EnvironmentFile   = {{ docker_sd_defaults_directory }}/docker-sd
 User              = {{ docker_sd_system_user }}
 Group             = {{ docker_sd_system_group }}
 
-ExecReload        = /bin/kill -HUP $MAINPID
 ExecStart         = /usr/bin/docker-sd $OPTIONS
 
-LimitNOFILE       = 65000
 SyslogIdentifier  = docker_sd
 Restart           = always
+RestartSec        = 10
 
 [Install]
 WantedBy          = multi-user.target

@@ -1,6 +1,6 @@
 ---
 
-docker_sd_version: "0.9.3"
+docker_sd_version: "0.10.0"
 
 docker_sd_release_download_url: https://github.com/bodsch/docker-sd/releases
 
