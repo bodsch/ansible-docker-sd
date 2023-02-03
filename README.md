@@ -2,7 +2,7 @@
 
 Ansible role to install and configure [docker-sd](https://github.com/bodsch/docker-sd).
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/bodsch/ansible-docker-sd/CI)][ci]
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/bodsch/ansible-docker-sd/main.yml?branch=main)][ci]
 [![GitHub issues](https://img.shields.io/github/issues/bodsch/ansible-docker-sd)][issues]
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/bodsch/ansible-docker-sd)][releases]
 [![Ansible Quality Score](https://img.shields.io/ansible/quality/50067?label=role%20quality)][quality]
@@ -10,7 +10,7 @@ Ansible role to install and configure [docker-sd](https://github.com/bodsch/dock
 [ci]: https://github.com/bodsch/ansible-docker-sd/actions
 [issues]: https://github.com/bodsch/ansible-docker-sd/issues?q=is%3Aopen+is%3Aissue
 [releases]: https://github.com/bodsch/ansible-docker-sd/releases
-[quality]: https://galaxy.ansible.com/bodsch/docker-sd
+[quality]: https://galaxy.ansible.com/bodsch/docker_sd
 
 
 If `latest` is set for `docker_sd_version`, the role tries to install the latest release version.  
@@ -19,7 +19,7 @@ If `latest` is set for `docker_sd_version`, the role tries to install the latest
 The binaries are installed below `/opt/docker-sd/${docker-sd_version}` and later linked to `/usr/sbin`. 
 This should make it possible to downgrade relatively safely.
 
-The Prometheus archive is stored on the Ansible controller, unpacked and then the binaries are copied to the target system.
+The Source archive is stored on the Ansible controller, unpacked and then the binaries are copied to the target system.
 The cache directory can be defined via the environment variable `CUSTOM_LOCAL_TMP_DIRECTORY`. 
 By default it is `${HOME}/.cache/ansible/docker-sd`.
 If this type of installation is not desired, the download can take place directly on the target system. 
@@ -40,7 +40,7 @@ If you want to use something stable, please use a [Tagged Version](https://githu
 ## Configuration
 
 ```yaml
-docker_sd_version: "0.9.3"
+docker_sd_version: "0.10.0"
 
 docker_sd_release_download_url: https://github.com/bodsch/docker-sd/releases
 
