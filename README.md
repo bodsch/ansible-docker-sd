@@ -25,6 +25,12 @@ By default it is `${HOME}/.cache/ansible/docker-sd`.
 If this type of installation is not desired, the download can take place directly on the target system. 
 However, this must be explicitly activated by setting `docker_sd_direct_download` to `true`.
 
+## Dependencies
+
+Ansible Collections
+
+- [bodsch.core](https://github.com/bodsch/ansible-collection-core)
+- [bodsch.scm](https://github.com/bodsch/ansible-collection-scm)
 
 ## Contribution
 
