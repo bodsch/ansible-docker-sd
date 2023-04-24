@@ -25,11 +25,12 @@ provisioner:
   name: ansible
   ansible_args:
     - --diff
-    # - -v
+    - -vvv
   config_options:
     defaults:
       deprecation_warnings: True
       stdout_callback: yaml
+      # collections_paths: ${MOLECULE_EPHEMERAL_DIRECTORY}/collections
 
 scenario:
   test_sequence:
