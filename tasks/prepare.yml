@@ -53,21 +53,6 @@
         password: "{{ lookup('env', 'GH_TOKEN') | default(omit) }}"
       register: _latest_release
 
-    # - name: get latest release
-    #   ansible.builtin.uri:
-    #     url: "https://api.github.com/repos/prometheus/docker-sd/releases/latest"
-    #     method: GET
-    #     return_content: true
-    #     status_code: 200
-    #     body_format: json
-    #     validate_certs: false
-    #     user: "{{ lookup('env', 'GH_USER') | default(omit) }}"
-    #     password: "{{ lookup('env', 'GH_TOKEN') | default(omit) }}"
-    #   # no_log: "{{ not lookup('env', 'ANSIBLE_DEBUG') | bool }}"
-    #   register: _latest_release
-    #   until: _latest_release.status == 200
-    #   retries: 5
-
     - name: set docker-sd version
       ansible.builtin.set_fact:
         docker_sd_version: "{{ _latest_release.latest_release }}"
@@ -96,18 +81,6 @@
         - _latest_checksum.rc == 0
         - _latest_checksum.checksum is defined
         - _latest_checksum.checksum | string | length > 0
-
-    - name: get checksum list
-      bodsch.scm.github_checksum:
-        project: prometheus
-        repository: alertmanager
-        checksum_file: sha256sums.txt
-        user: "{{ lookup('env', 'GH_USER') | default(omit) }}"
-        password: "{{ lookup('env', 'GH_TOKEN') | default(omit) }}"
-        architecture: "{{ ansible_architecture }}"
-        system: "{{ ansible_facts.system }}"
-        version: v0.25.0
-      register: _latest_checksum
 
 - name: detect our installation path. {{ docker_sd_install_path | dirname }}
   ansible.builtin.stat:

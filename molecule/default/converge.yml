@@ -1,13 +1,12 @@
 ---
+
 - name: converge
-  hosts: all
-  any_errors_fatal: true
+  hosts: instance
+  any_errors_fatal: false
+  become: false
 
   environment:
-    # NETRC: ''
-    # https://github.com/ansible/ansible/issues/77133
-    # https://github.com/ansible/ansible/pull/76542
-    # LANGUAGE: en_UK.utf8
+    NETRC: ''
 
   roles:
     - role: ansible-docker-sd
