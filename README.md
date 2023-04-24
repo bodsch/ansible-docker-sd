@@ -32,6 +32,26 @@ Ansible Collections
 - [bodsch.core](https://github.com/bodsch/ansible-collection-core)
 - [bodsch.scm](https://github.com/bodsch/ansible-collection-scm)
 
+```bash
+ansible-galaxy collection install bodsch.core
+ansible-galaxy collection install bodsch.scm
+```
+or
+```bash
+ansible-galaxy collection install --requirements-file collections.yml
+```
+
+
+## Operating systems
+
+Tested on
+
+* Arch Linux
+* Debian based
+    - Debian 10 / 11
+    - Ubuntu 20.10
+
+
 ## Contribution
 
 Please read [Contribution](CONTRIBUTING.md)
@@ -79,4 +99,4 @@ docker_sd_addition_labels: []
 
 [Apache](LICENSE)
 
-`FREE SOFTWARE, HELL YEAH!`
+**FREE SOFTWARE, HELL YEAH!**
