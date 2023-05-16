@@ -28,11 +28,11 @@
         owner: "{{ docker_sd_system_user }}"
         group: "{{ docker_sd_system_group }}"
 
-- name: create local facts
-  ansible.builtin.template:
-    src: ansible_facts.j2
-    dest: /etc/ansible/facts.d/docker_sd.fact
-    mode: 0755
+- name: create custom fact file
+  bodsch.core.facts:
+    name: docker_sd
+    facts:
+      version: "{{ docker_sd_version }}"
 
 - name: create link to binary
   ansible.builtin.file:
