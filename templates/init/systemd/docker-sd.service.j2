@@ -12,7 +12,7 @@ EnvironmentFile   = {{ docker_sd_defaults_directory }}/docker-sd
 User              = {{ docker_sd_system_user }}
 Group             = {{ docker_sd_system_group }}
 
-ExecStart         = /usr/bin/docker-sd $OPTIONS
+ExecStart         = /usr/bin/{{ docker_sd_release.binary }} $OPTIONS
 
 SyslogIdentifier  = docker_sd
 Restart           = always

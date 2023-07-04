@@ -17,6 +17,8 @@ galaxy_info:
         - buster
         # 11
         - bullseye
+        # 12
+        - bookworm
 
   galaxy_tags:
     - monitoring

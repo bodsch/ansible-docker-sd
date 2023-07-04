@@ -68,13 +68,13 @@ If you want to use something stable, please use a [Tagged Version](https://githu
 ```yaml
 docker_sd_version: "0.10.0"
 
-docker_sd_release_download_url: https://github.com/bodsch/docker-sd/releases
-
 docker_sd_system_user: docker-sd
 docker_sd_system_group: docker-sd
 docker_sd_config_dir: /etc/docker-sd
 
 docker_sd_direct_download: false
+
+docker_sd_release: {}
 
 docker_sd_rest_api:
   port: 8088

@@ -32,10 +32,11 @@ docker_sd_defaults_addition_labels: []
 
 docker_sd_defaults_directory: /etc/default
 
-__docker_sd_files:
-  archive: "{{ docker_sd_version }}/docker-sd-{{ docker_sd_version }}-linux-{{ go_arch }}.tar.gz"
-  checksum: "{{ docker_sd_version }}/docker-sd-{{ docker_sd_version }}-linux-{{ go_arch }}.tar.gz.sha256"
-  binary: "docker-sd-{{ docker_sd_version }}.linux-{{ go_arch }}.tar.gz"
+docker_sd_defaults_release:
+  download_url: https://github.com/bodsch/docker-sd/releases
+  file: "docker-sd-{{ docker_sd_version }}-{{ ansible_facts.system | lower }}-{{ system_architecture }}.tar.gz"
+  checksum: "docker-sd-{{ docker_sd_version }}-{{ ansible_facts.system | lower }}-{{ system_architecture }}.tar.gz.sha256"
+  binary: docker-sd
 
 # ---------------------------------------------
 
@@ -45,7 +46,7 @@ go_arch_map:
   armv7l: 'armv7'
   armv6l: 'armv6'
 
-go_arch: "{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+system_architecture: "{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"
 
 systemd_lib_directory: /lib/systemd/system
 

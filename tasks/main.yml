@@ -5,13 +5,12 @@
 
 - name: download archive
   ansible.builtin.include_tasks: download.yml
-  when:
-    - not stat_docker_sd_binary.stat.exists
 
 - name: install
   ansible.builtin.include_tasks: install.yml
-  # when:
-  #   - not stat_docker_sd_binary.stat.exists
+
+- name: user
+  ansible.builtin.include_tasks: user.yml
 
 - name: configure
   ansible.builtin.include_tasks: configure.yml
