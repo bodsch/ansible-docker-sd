@@ -1,0 +1,88 @@
+---
+
+container_network:
+  - name: test
+    subnet: 172.3.27.0/24
+    gateway: 172.3.27.2
+    iprange: 172.3.27.0/26
+
+container_fail:
+  error_at_launch: false
+
+container_custom_tasks: []
+
+container_pre_tasks: []
+#  - /usr/local/bin/list_all_images.sh
+
+container_post_tasks: []
+#  - /usr/local/bin/remove_untagged_images.sh
+#  - /usr/local/bin/parse_container_fact.sh
+
+_images:
+  image_mgo: maxisam/mgob:latest
+  image_1: "busybox:latest"
+
+_container_defaults: &CONTAINER_DEFAULTS
+  restart_policy: always
+  labels:
+    watchdog: "false"
+    "foo.bar.fix.mich": "nope"
+  log_options:
+    labels: "service"
+    max-size: "1m"
+    max-file: "2"
+
+container: "{{
+  container_mgob | default([]) |
+  union(container_1 | default([]))
+  }}"
+
+container_mgob:
+  - name: mgob
+    <<: *CONTAINER_DEFAULTS
+    # state: present
+    hostname: mgob
+    image: "{{ _images.image_mgo }}"
+    published_ports:
+      - 8090:8090
+    environments:
+      VIRTUAL_HOST: mgob.local
+    mounts:
+      - source: /opt/mgob/config
+        target: /config
+        type: bind
+        source_handling:
+          create: true
+          owner: "999"
+          mode: "0750"
+      - source: /opt/mgob/storage
+        target: /storage
+        type: bind
+        source_handling:
+          create: true
+          owner: "999"
+          mode: "0750"
+      - source: /opt/mgob/data
+        target: /data
+        type: bind
+        source_handling:
+          create: true
+          owner: "999"
+          mode: "0750"
+
+container_1:
+  - name: busybox-1
+    <<: *CONTAINER_DEFAULTS
+    hostname: busybox-1
+    image: "{{ _images.image_1 }}"
+    mounts:
+      - source: /tmp/busybox-1/testing1
+        target: /var/tmp/testing1
+        type: bind
+        source_handling:
+          create: true
+          owner: "1000"
+          group: "1000"
+          mode: "0750"
+
+...

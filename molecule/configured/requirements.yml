@@ -4,4 +4,7 @@
   src: bodsch.docker
   version: 3.7.0
 
+- name: container
+  src: bodsch.container
+
 ...
