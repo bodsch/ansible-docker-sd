@@ -36,3 +36,13 @@
           - "distribution version : {{ ansible_distribution_major_version }}"
           - "ansible version      : {{ ansible_version.full }}"
           - "python version       : {{ ansible_python.version.major }}.{{ ansible_python.version.minor }}"
+
+- name: install older version
+  hosts: all
+  any_errors_fatal: true
+
+  vars:
+    docker_sd_version: "0.10.0"
+
+  roles:
+    - role: ansible-docker-sd
